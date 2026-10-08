@@ -1,0 +1,10 @@
+@startuml
+skin rose
+
+participant User 
+entity frontend
+entity backend
+entity "Ad Server"
+database Database
+
+@enduml
