@@ -43,6 +43,4 @@ Backend --> Frontend: Violation
 Frontend -> User: Display Error Message
 end
 
-
-@enduml
 @enduml
