@@ -2,9 +2,47 @@
 skin rose
 
 participant User 
-entity frontend
-entity backend
+entity Frontend
+entity Backend
 entity "Ad Server"
 database Database
 
+
+Frontend --> User: Question Input Form
+User -> Frontend: Question Submit
+Frontend -> Backend:Send Question to Backend
+note over Backend: Standardize Question using NLP
+
+
+alt success good question
+Backend -> Database: Query for Answers
+
+alt success answer exists
+Database --> Backend: Answer
+Backend --> Frontend: Answer
+Frontend -> "Ad Server": Request Advertisement
+"Ad Server" --> Frontend: Send Advertisement
+Frontend --> User: Display Answer and Advertisement
+
+
+
+else failure no answer
+Database --> Backend: No Answer
+Backend --> Frontend: No Answer send message
+Frontend --> User: Hmm...Let me think about it. Ask me again in 24 hours.
+Backend -> Database: Store Question for Review
+note over Backend, Database
+Human editor will review unanswered questions 
+and store review into Database
+end note
+Backend -> Database: Store Review
+end
+
+else failure violates guidelines
+Backend --> Frontend: Violation
+Frontend -> User: Display Error Message
+end
+
+
+@enduml
 @enduml
